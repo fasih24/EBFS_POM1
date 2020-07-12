@@ -1,39 +1,30 @@
-/*
- * @author Naveen Khunteta
- * 
- */
-
 package com.ebfs.qa.testcases;
 
-import java.io.IOException;
 
-import org.apache.log4j.PropertyConfigurator;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
 
+import com.aventstack.extentreports.Status;
 import com.ebfs.qa.base.TestBase;
 import com.ebfs.qa.pages.ContactsPage;
 import com.ebfs.qa.pages.HomePage;
-import com.ebfs.qa.pages.LoginPage;
+import com.ebfs.qa.testcase.properties.ContactsPageTestProperties;
 import com.ebfs.qa.util.TestUtil;
+import com.qa.ExtentReportListener.ExtentTestManager;
 
+/**
+ * @author Saney Alam
+ *
+ */
 public class ContactsPageTest extends TestBase{
-
-	LoginPage loginPage;
+	
 	HomePage homePage;
 	TestUtil testUtil;
-	ContactsPage contactsPage;
-	
-	String sheetName = "contacts";
-	
+	ContactsPage contactsPage;	
+	String sheetName = "contacts";	
 	   
 	public ContactsPageTest(){
 			super();
@@ -41,36 +32,26 @@ public class ContactsPageTest extends TestBase{
 	}
 	
 	
+	/**
+	 * @throws InterruptedException
+	 */
 	@BeforeMethod
 	public void setUp() throws InterruptedException {
 		
 		initialization();
 		testUtil = new TestUtil();
-		contactsPage = new ContactsPage();
-		loginPage = new LoginPage();
-		homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
-		TestUtil.runTimeInfo("error", "login successful");
-		testUtil.switchToFrame();
+		contactsPage = new ContactsPage();		
+		homePage = new HomePage();
 		contactsPage = homePage.clickOnContactsLink();
 	}
 	
 	@Test(priority=1)
 	public void verifyContactsPageLabel(){
-		Assert.assertTrue(contactsPage.verifyContactsLabel(), "contacts label is missing on the page");
+		ExtentTestManager.getTest().log(Status.INFO, "Verify Contact Us Page Label");
+		Assert.assertTrue(contactsPage.verifyContactsLabel(), ContactsPageTestProperties.ERROR_MSG);
 	}
 	
-	@Test(priority=2)
-	public void selectSingleContactsTest(){
-		contactsPage.selectContactsByName("test2 test2");
-	}
-	
-	@Test(priority=3)
-	public void selectMultipleContactsTest(){
-		contactsPage.selectContactsByName("test2 test2");
-		contactsPage.selectContactsByName("ui uiii");
-
-	}
-	
+		
 	@DataProvider
 	public Object[][] getCRMTestData(){
 		Object data[][] = TestUtil.getTestData(sheetName);
@@ -78,22 +59,10 @@ public class ContactsPageTest extends TestBase{
 	}
 	
 	
-	@Test(priority=4, dataProvider="getCRMTestData")
-	public void validateCreateNewContact(String title, String firstName, String lastName, String company){
-		homePage.clickOnNewContactLink();
-		//contactsPage.createNewContact("Mr.", "Tom", "Peter", "Google");
-		contactsPage.createNewContact(title, firstName, lastName, company);
-		
-	}
-	
-	
-
 	@AfterMethod
 	public void tearDown(){
 		driver.quit();
 	}
 	
-	
-	
-	
+		
 }

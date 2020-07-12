@@ -15,27 +15,22 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import com.ebfs.qa.base.TestBase;
+import com.ebfs.qa.properties.TestUtilProperties;
 
 public class TestUtil extends TestBase {
-
-	public static long PAGE_LOAD_TIMEOUT = 20;
-	public static long IMPLICIT_WAIT = 20;
-
-	public static String TESTDATA_SHEET_PATH = "/Users/naveenkhunteta/Documents/workspace"
-			+ "/FreeCRMTest/src/main/java/com/crm/qa/testdata/FreeCrmTestData.xlsx";
 
 	static Workbook book;
 	static Sheet sheet;
 	static JavascriptExecutor js;
 
 	public void switchToFrame() {
-		driver.switchTo().frame("mainpanel");
+		driver.switchTo().frame(TestUtilProperties.FRAME_MAIN_PANEL);
 	}
 
 	public static Object[][] getTestData(String sheetName) {
 		FileInputStream file = null;
 		try {
-			file = new FileInputStream(TESTDATA_SHEET_PATH);
+			file = new FileInputStream(TestUtilProperties.TESTDATA_SHEET_PATH);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
