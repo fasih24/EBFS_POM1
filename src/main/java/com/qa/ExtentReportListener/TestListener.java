@@ -23,22 +23,22 @@ public class TestListener implements ITestListener {
 	final Logger log = LogManager.getLogger(TestListener.class.getName());
 
 	public void onStart(ITestContext context) {
-		System.out.println("*** Test Suite " + context.getName() + " started ***");
+		log.info("*** Test Suite " + context.getName() + " started ***");
 	}
 
 	public void onFinish(ITestContext context) {
-		System.out.println(("*** Test Suite " + context.getName() + " ending ***"));
+		log.info(("*** Test Suite " + context.getName() + " ending ***"));
 		ExtentTestManager.endTest();
 		ExtentManager.getInstance().flush();
 	}
 
 	public void onTestStart(ITestResult result) {
-		System.out.println(("*** Running test method " + result.getMethod().getMethodName() + "..."));
+		log.info(("*** Running test method " + result.getMethod().getMethodName() + "..."));
 		ExtentTestManager.startTest(result.getMethod().getMethodName());
 	}
 
 	public void onTestSuccess(ITestResult result) {
-		System.out.println("*** Executed " + result.getMethod().getMethodName() + " test successfully...");
+		log.info("*** Executed " + result.getMethod().getMethodName() + " test successfully...");
 		ExtentTestManager.getTest().log(Status.PASS, "Test passed");
 	}
 
