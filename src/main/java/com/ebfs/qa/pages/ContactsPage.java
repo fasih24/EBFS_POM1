@@ -24,6 +24,13 @@ public class ContactsPage extends TestBase {
 	
 	@FindBy(id = "fileUpload")
 	WebElement textFileUpload;
+	@FindBy(id = "message")
+	WebElement msgBox;
+	@FindBy(id = "newsletter-input")
+	WebElement newsLetterEmail;
+	 
+	@FindBy(xpath=ContactsPageProperties.LBL_SHOPING_CART_XPATH)
+	WebElement shopingcart;
 	
 	//TO-DO: Add all the Missing WebElement in the Contact Us page
 	

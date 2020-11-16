@@ -19,6 +19,7 @@ import com.ebfs.qa.properties.TestUtilProperties;
 
 public class TestBase {
 	
+	
 	public static WebDriver driver;
 	public static Properties prop;
 	public  static EventFiringWebDriver e_driver;
@@ -69,6 +70,7 @@ public class TestBase {
 		driver.manage().timeouts().implicitlyWait(TestUtilProperties.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		
 		driver.get(prop.getProperty("url"));
+		
 		
 	}
 	

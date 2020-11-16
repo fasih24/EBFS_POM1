@@ -1,5 +1,6 @@
 package com.ebfs.qa.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +10,7 @@ import com.ebfs.qa.base.TestBase;
 import com.ebfs.qa.properties.HomePageProperties;
 
 public class HomePage extends TestBase {
-
+     
 	@FindBy(xpath = HomePageProperties.IMG_LOGO_XPATH)
 	@CacheLookup
 	WebElement logo;
@@ -17,31 +18,31 @@ public class HomePage extends TestBase {
 	@FindBy(xpath = HomePageProperties.LNK_CONTACT_US_XPATH)
 	WebElement contactsLink;
 	
-
+	@FindBy(className = HomePageProperties.Link_HomePage_class)
+	WebElement signinLink;
+	
 	// Initializing the Page Objects:
+
 	public HomePage() {
 		PageFactory.initElements(driver, this);
 	}
+
+	public String verifyHomePageTitle() {
 	
-	public String verifyHomePageTitle(){
 		return driver.getTitle();
 	}
-	
-	
-	public boolean verifyLogoDisplayed(){
+
+	public boolean verifyLogoDisplayed() {
 		return logo.isDisplayed();
 	}
-	
-	public ContactsPage clickOnContactsLink(){
+
+	public ContactsPage clickOnContactsLink() {
 		contactsLink.click();
 		return new ContactsPage();
 	}
-	
-		
-	
-	
-	
-	
-	
+
+	public void clickSignIn() {
+       signinLink.click();
+	}
 
 }
